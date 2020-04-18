@@ -2,13 +2,18 @@ import axios from "axios"; //Axios is used to make api requests
 
 const url = "https://covid19.mathdro.id/api";
 
-export const fetchData = async () => {
+export const fetchData = async (country) => {
   //The word “async” before a function means one simple thing: a function always returns a promise.
+  let changeableUrl = url;
+
+  if (country) {
+    changeableUrl = `${url}/countries/${country}`;
+  }
 
   try {
     const {
       data: { confirmed, recovered, deaths, lastUpdate },
-    } = await axios.get(url);
+    } = await axios.get(changeableUrl);
 
     return {
       confirmed,
@@ -16,7 +21,9 @@ export const fetchData = async () => {
       deaths,
       lastUpdate,
     };
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const fetchDailyData = async () => {
