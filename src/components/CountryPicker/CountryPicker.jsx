@@ -6,10 +6,10 @@ import styles from "./CountryPicker.module.css";
 import { fetchCountries } from "../../api";
 
 const CountryPicker = ({ handleCountryChange }) => {
-  const [fetchedCountries, setFetchedCountries] = useState([]);
+  const [countries, setCountries] = useState([]);
   useEffect(() => {
     const fetchAPI = async () => {
-      setFetchedCountries(await fetchCountries());
+      setCountries(await fetchCountries());
     };
     fetchAPI();
   }, []);
@@ -21,7 +21,7 @@ const CountryPicker = ({ handleCountryChange }) => {
       >
         <option value="">Global</option>
 
-        {fetchedCountries.map((country, i) => (
+        {countries.map((country, i) => (
           <option key={i} value={country}>
             {country}
           </option>
